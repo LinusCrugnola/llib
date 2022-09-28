@@ -7,9 +7,9 @@ import fnmatch
 today = date.today()
 
 # snippets to insert
-head_1 = "/******************************************************************************!\n* @file     "
-head_2 = "\n* @author   Linus Crugnola <linus.crugnola@epfl.ch>     \n* @version  1.0\n* @date     "
-head_3 = "\n*******************************************************************************/"
+head_1 = "/*!****************************************************************************************************************************************\n* @file     "
+head_2 = "\n*\n* @author   Linus Crugnola <linus.crugnola@epfl.ch>     \n*\n* @version  1.0\n*\n* @date     "
+head_3 = "\n*****************************************************************************************************************************************/"
 
 
 path = os.path.dirname(os.path.abspath(__file__))
@@ -30,7 +30,7 @@ for file in files:
         describtion = file.replace('.h','') + " interface"
     fline = head_1 + os.path.basename(file) + head_2 + today.strftime("%d.%m.%Y") + head_3
     content = myfile.read()
-    if content[0:10] != "/*********":
+    if content[0:10] != "/*!*******":
         new_content = fline + "\n \n" + content
         myfile.close()
         myfile = open(file, "w")
