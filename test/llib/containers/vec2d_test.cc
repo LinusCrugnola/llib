@@ -10,6 +10,7 @@
  
 #include <gtest/gtest.h>
 #include "vec2d.h"
+#include "vec3d.h"
 
 TEST(Vec2dTest, BasicAssertions) {
     // Expect equalitys.
@@ -17,4 +18,11 @@ TEST(Vec2dTest, BasicAssertions) {
     EXPECT_EQ(0, 1);
 
     llib::printTest();
+
+    //llib::vec2d<int>();
+
+    // test testobj;
+    // testobj.printText();
+
+    lol();
 }

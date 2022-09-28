@@ -1,5 +1,5 @@
 /*!****************************************************************************************************************************************
-* @file     vec3d.cc
+* @file     vec2d.cc
 *
 * @author   Linus Crugnola <linus.crugnola@epfl.ch>     
 *
@@ -7,13 +7,17 @@
 *
 * @date     28.09.2022
 *****************************************************************************************************************************************/
- 
-#include "vec3d.h"
 
-void test::printText(){
-    std::cout << text << std::endl;
-}
+#include <iostream>
+#include <string>
 
-test::test(){}
+class test{
+public:
+    std::string text = "hello";
 
-void lol(){ std::cout << "Lol" << std::endl; }
+    test();
+
+    void printText();
+};
+
+void lol();
