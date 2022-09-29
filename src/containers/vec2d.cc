@@ -32,9 +32,7 @@ vec2d<T> vec2d<T>::operator-(const vec2d<T>& v){
 
 template<class T>
 vec2d<T> vec2d<T>::operator=(const vec2d<T>& v){
-    _x = v._x;
-    _y = v._y;
-    return *this;
+    return vec2d<T>(v._x, v._y);
 }
 
 template<class T>
@@ -43,17 +41,17 @@ vec2d<T> vec2d<T>::operator*(const float& n){
 }
 
 template<class T>
-vec2d<T> vec2d<T>::operator==(const vec2d<T>& v) const {
-    return _x == v._x and _y == v._y;
+bool vec2d<T>::operator==(const vec2d<T>& v) const {
+    return (_x == v._x) and (_y == v._y);
 }
 
 template<class T>
-vec2d<T> vec2d<T>::operator!=(const vec2d<T>& v) const {
-    return _x != v._x or _y != v._y;
+bool vec2d<T>::operator!=(const vec2d<T>& v) const {
+    return (_x != v._x) or (_y != v._y);
 }
 
 template<class T>
-vec2d<T> vec2d<T>::scalProd(const vec2d<T>& v1, const vec2d<T>& v2){
+float vec2d<T>::scalProd(const vec2d<T>& v1, const vec2d<T>& v2){
     return v1._x * v2._x + v1._y * v2._y;
 }
 
@@ -64,14 +62,12 @@ float vec2d<T>::abs(const vec2d<T>& v) const {
 
 template<class T>
 vec2d<T> vec2d<T>::setLen(const float& length){
-    this->_x = 2;
-    this->_y = 2;
+    return vec2d<T>(2,2);
 }
 
 template<class T>
 vec2d<T> vec2d<T>::setAng(const float& length){
-    this->_x = 3;
-    this->_y = 3;
+    return vec2d<T>(3,3);
 }
 
 template <class T>
@@ -80,10 +76,8 @@ void vec2d<T>::rotate(const float& angle){
     this->_y = 3;
 }
 
-template<class T>
-std::ostream& operator<<(std::ostream& os, const vec2d<T>& v){
-    os << "( " << v._x << ", " << v._y << " )";
-    return os;
-}
-
 void llib::printTest(){ std::cout << "test" << std::endl; }
+
+namespace llib{
+    template class vec2d<int>;
+}

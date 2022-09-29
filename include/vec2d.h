@@ -21,7 +21,8 @@ namespace llib {
      * @param dy change of y direciton
      */
     template<class T>
-    struct vec2d {
+    class vec2d final {
+    public:
         T _x;
         T _y;
 
@@ -36,9 +37,9 @@ namespace llib {
         vec2d<T> operator-(const vec2d<T>& v);
         vec2d<T> operator=(const vec2d<T>& v);
         vec2d<T> operator*(const float& n);
-        vec2d<T> operator==(const vec2d<T>& v) const;
-        vec2d<T> operator!=(const vec2d<T>& v) const;
-        vec2d<T> scalProd(const vec2d<T>& v1, const vec2d<T>& v2);
+        bool operator==(const vec2d<T>& v) const;
+        bool operator!=(const vec2d<T>& v) const;
+        float scalProd(const vec2d<T>& v1, const vec2d<T>& v2);
         float abs(const vec2d<T>& v) const;
         vec2d<T> setLen(const float& length);
         vec2d<T> setAng(const float& angle);
@@ -58,8 +59,10 @@ namespace llib {
      * @return std::ostream& 
      */
     template<class T>
-    std::ostream& operator<<(std::ostream& os, const vec2d<T>& v);
+    std::ostream& operator<<(std::ostream& os, const vec2d<T>& v){
+        os << "( " << v._x << ", " << v._y << " )";
+        return os;
+    }
 
     void printTest();
-
 }

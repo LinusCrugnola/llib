@@ -9,15 +9,14 @@
 *****************************************************************************************************************************************/
  
 #include <gtest/gtest.h>
+#include "vec3d.h"
 #include "vec2d.h"
 
 TEST(Vec2dTest, BasicAssertions) {
-    // Expect equalitys.
-    EXPECT_EQ(1, 1);
-    EXPECT_EQ(0, 1);
 
-    llib::printTest();
+    llib::vec2d<int> v;
+    llib::vec2d<int> u;
+    llib::vec2d<int> w(1,1);
 
-    llib::vec2d<int> vector();
-
+    std::cout << u << std::endl;
 }
