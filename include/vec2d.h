@@ -11,6 +11,7 @@
 #pragma once
 
 #include <iostream>
+#include <math.h>
 
 namespace llib {
 
@@ -26,25 +27,51 @@ namespace llib {
         T _x;
         T _y;
 
-        vec2d(T x, T y);
-        vec2d();
+        vec2d(T x, T y) : _x(x), _y(y) {}
+        vec2d(T x) : _x(x), _y(x) {}
+        vec2d() : _x(), _y() {}
         ~vec2d(){};
 
         // disable the copy constructor
         //vec2d(const vec2d&) = delete;
 
-        vec2d<T> operator+(const vec2d<T>& v);
-        vec2d<T> operator-(const vec2d<T>& v);
-        vec2d<T> operator=(const vec2d<T>& v);
-        vec2d<T> operator*(const float& n);
-        bool operator==(const vec2d<T>& v) const;
-        bool operator!=(const vec2d<T>& v) const;
-        float scalProd(const vec2d<T>& v1, const vec2d<T>& v2);
-        float abs(const vec2d<T>& v) const;
-        vec2d<T> setLen(const float& length);
-        vec2d<T> setAng(const float& angle);
-
-        void rotate(const float& angle);
+        vec2d<T> operator+(const vec2d<T>& v) {
+            return vec2d<T>(_x + v._x, _y + v._y);
+        }
+        vec2d<T> operator-(const vec2d<T>& v){
+            return vec2d<T>(_x - v._x, _y - v._y);
+        }
+        vec2d<T> operator=(const vec2d<T>& v){
+            return vec2d<T>(v._x, v._y);
+        }
+        vec2d<T> operator*(const float& n){
+            return vec2d<T>(_x * n, _y * n);
+        }
+        bool operator==(const vec2d<T>& v) const {
+            return (_x == v._x) and (_y == v._y);
+        }
+        bool operator!=(const vec2d<T>& v) const{
+            return (_x != v._x) or (_y != v._y);
+        }
+        float scalProd(const vec2d<T>& v1, const vec2d<T>& v2){
+            return v1._x * v2._x + v1._y * v2._y;
+        }
+        float abs(const vec2d<T>& v) const {
+            return sqrt(v._x * v._x + v._y * v._y);
+        }
+        //TODO:
+        vec2d<T> setLen(const float& length){
+            return vec2d<T>(2,2);
+        }
+        //TODO:
+        vec2d<T> setAng(const float& angle){
+            return vec2d<T>(3,3);
+        }
+        //TODO:
+        void rotate(const float& angle){
+            _x = 3;
+            _y = 3;
+        }
 
         //pol2d to_polar(const vec2d& v) const;
 
@@ -63,6 +90,4 @@ namespace llib {
         os << "( " << v._x << ", " << v._y << " )";
         return os;
     }
-
-    void printTest();
 }
