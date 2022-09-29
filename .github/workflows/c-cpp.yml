@@ -22,12 +22,6 @@ jobs:
     - name: makeresultdir
       working-directory: ${{github.workspace}}
       run: mkdir -p test/test-results
-
-  test:
-
-    runs-on: ubuntu-latest
-    
-    steps:
     - name: runtests
       working-directory: ${{github.workspace}}/build
       run: ./llibUnitTests* --gtest_output=xml:../test/test-results/llibTests.xml
