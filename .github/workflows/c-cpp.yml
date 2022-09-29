@@ -13,21 +13,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: make build dir
+    - name: makebuilddir
       run: mkdir -p build
-    - name: cmake Config
+    - name: cmakeConfig
       run: cmake -B ${{github.workspace}}/build
     - name: Build
       run: cmake --build ${{github.workspace}}/build
-    - name: make result dir
+    - name: makeresultdir
       working-directory: ${{github.workspace}}
       run: mkdir -p test/test-results
-    - name: run tests
+    - name: runtests
       working-directory: ${{github.workspace}}/build
       run: ./llibUnitTests* --gtest_output=xml:../test/test-results/llibTests.xml
-    - name: Archive code coverage results
-      uses: actions/upload-artifact@v3
-      with:
-        name: testReport
-        path: -{{github.workspace}}/test/test-results/llibTests.xml
+    
   
