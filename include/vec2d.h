@@ -41,23 +41,17 @@ namespace llib {
         vec2d<T> operator-(const vec2d<T>& v){
             return vec2d<T>(_x - v._x, _y - v._y);
         }
-        vec2d<T> operator=(const vec2d<T>& v){
-            return vec2d<T>(v._x, v._y);
-        }
-        vec2d<T> operator*(const float& n){
-            return vec2d<T>(_x * n, _y * n);
-        }
         bool operator==(const vec2d<T>& v) const {
             return (_x == v._x) and (_y == v._y);
         }
         bool operator!=(const vec2d<T>& v) const{
             return (_x != v._x) or (_y != v._y);
         }
-        float scalProd(const vec2d<T>& v1, const vec2d<T>& v2){
-            return v1._x * v2._x + v1._y * v2._y;
+        float len() const {
+            return sqrt(_x * _x + _y * _y);
         }
-        float abs(const vec2d<T>& v) const {
-            return sqrt(v._x * v._x + v._y * v._y);
+        float ang() const {
+            return atanf(_y / _x);
         }
         //TODO:
         vec2d<T> setLen(const float& length){
@@ -76,6 +70,21 @@ namespace llib {
         //pol2d to_polar(const vec2d& v) const;
 
     };
+
+    template<class T>
+    vec2d<T> operator*(const float& n, const vec2d<T>& vr){
+        return vec2d<T>(vr._x * n, vr._y * n);
+    }
+
+    template<class T>
+    vec2d<T> operator*(const vec2d<T>& vl, const float& n){
+        return vec2d<T>(vl._x * n, vl._y * n);
+    }
+
+    template<class T>
+    float scalProd(const vec2d<T>& v1, const vec2d<T>& v2){
+        return v1._x * v2._x + v1._y * v2._y;
+    }
 
     /**
      * @brief Pretty-print vector to the console
