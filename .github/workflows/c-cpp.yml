@@ -1,0 +1,34 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: makebuilddir
+      run: mkdir -p build
+    - name: chdir
+      run: cd build
+    - name: cmake
+      run: cmake ..
+    - name: make
+      run: make
+
+  runtests:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: makeresultdir
+      run: mkdir -p ../test/test-results
+    - name: runtests
+      run: ./llibUnitTests --gtest_output=xml:../test/test-results/llibTests.xml
+    
+  
