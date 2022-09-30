@@ -106,3 +106,7 @@ TEST_F(vec2dTest, SetAngle){
     EXPECT_EQ(1.0 / 2 , v._y);
     EXPECT_EQ(sqrtf32(3) / 2 , v._x);
 }
+//TODO:
+TEST_F(vec2dTest, Rotate){
+
+}
