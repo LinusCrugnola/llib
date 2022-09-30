@@ -12,6 +12,9 @@
 #include "vec3d.h"
 #include "vec2d.h"
 
+#define _TEST_RD(x) (int(1000000 * x))
+#define _QUAS_0 0.000001
+
 class vec2dTest : public ::testing::Test {
 
 };
@@ -78,14 +81,28 @@ TEST_F(vec2dTest, Angle){
     EXPECT_EQ(v.ang(), M_PI_4f32);
     v = {1.0f, 2.0f - sqrtf32(3.0f)};
     // Take rounded values for verification
-    EXPECT_EQ(int(10000*v.ang()), int(10000*M_PIf32/12));
+    EXPECT_EQ(_TEST_RD(v.ang()), _TEST_RD(M_PIf32/12));
 }
 
-//TODO:
 TEST_F(vec2dTest, SetLength){
-    
+    llib::vec2d<float> v(1.0f, 1.0f);
+    v.setLen(5);
+    EXPECT_EQ(v.len(), 5);
+    v.setLen(2.445);
+    EXPECT_EQ(_TEST_RD(v.len()), _TEST_RD(2.445));
 }
-//TODO:
-TEST_F(vec2dTest, SetAngle){
 
+TEST_F(vec2dTest, SetAngle){
+    llib::vec2d<float> v(1.0f, 1.0f);
+    v.setAng(0);
+    EXPECT_EQ(v._x , v.len());
+    EXPECT_EQ(v._y , 0);
+    v.setAng(M_PI / 2);
+    EXPECT_LE(v._x , _QUAS_0);
+    EXPECT_EQ(v._y , v.len());
+    //v.setLen(1); TODO: gives back nan!
+    v = {1, 0};
+    v.setAng(M_PI / 6);
+    EXPECT_EQ(1.0 / 2 , v._y);
+    EXPECT_EQ(sqrtf32(3) / 2 , v._x);
 }

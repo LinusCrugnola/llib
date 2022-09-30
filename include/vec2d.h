@@ -35,36 +35,38 @@ namespace llib {
         // disable the copy constructor
         //vec2d(const vec2d&) = delete;
 
-        vec2d<T> operator+(const vec2d<T>& v) {
+        [[nodiscard]] vec2d<T> operator+(const vec2d<T>& v) {
             return vec2d<T>(_x + v._x, _y + v._y);
         }
-        vec2d<T> operator-(const vec2d<T>& v){
+        [[nodiscard]] vec2d<T> operator-(const vec2d<T>& v){
             return vec2d<T>(_x - v._x, _y - v._y);
         }
-        bool operator==(const vec2d<T>& v) const {
+        [[nodiscard]] bool operator==(const vec2d<T>& v) const {
             return (_x == v._x) and (_y == v._y);
         }
-        bool operator!=(const vec2d<T>& v) const{
+        [[nodiscard]] bool operator!=(const vec2d<T>& v) const{
             return (_x != v._x) or (_y != v._y);
         }
-        float len() const {
+        [[nodiscard]] float len() const {
             return sqrt(_x * _x + _y * _y);
         }
-        float ang() const {
+        [[nodiscard]] float ang() const {
             return atanf(_y / _x);
         }
-        //TODO:
-        vec2d<T> setLen(const float& length){
-            return vec2d<T>(2,2);
+        //TODO: weird behaviour sometimes (nan)
+        constexpr void setLen(const float& length){
+            float _fac = (float)_y / _x;
+            _x = length * 1 / sqrtf32(1 + _fac);
+            _y = length * _fac / sqrtf32(1 + _fac);
         }
-        //TODO:
-        vec2d<T> setAng(const float& angle){
-            return vec2d<T>(3,3);
+        constexpr void setAng(const float& angle){
+            float _fac = this->len();
+            _x = _fac * cosf32(angle);
+            _y = _fac * sinf32(angle);
         }
-        //TODO:
-        void rotate(const float& angle){
-            _x = 3;
-            _y = 3;
+        constexpr void rotate(const float& angle){
+            _x = cosf32(angle) * _x - sinf32(angle) * _y;
+            _y = sinf32(angle) * _x + cosf32(angle) * _y;
         }
 
         //pol2d to_polar(const vec2d& v) const;
