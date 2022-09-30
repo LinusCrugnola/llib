@@ -22,8 +22,7 @@ namespace llib {
      * @param dy change of y direciton
      */
     template<class T>
-    class vec2d final {
-    public:
+    struct vec2d final {
         T _x;
         T _y;
 
