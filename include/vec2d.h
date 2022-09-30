@@ -87,14 +87,6 @@ namespace llib {
         return v1._x * v2._x + v1._y * v2._y;
     }
 
-    /**
-     * @brief Pretty-print vector to the console
-     * 
-     * @tparam T 
-     * @param os 
-     * @param v 
-     * @return std::ostream& 
-     */
     template<class T>
     std::ostream& operator<<(std::ostream& os, const vec2d<T>& v){
         os << "( " << v._x << ", " << v._y << " )";
