@@ -97,16 +97,25 @@ TEST_F(vec2dTest, SetAngle){
     v.setAng(0);
     EXPECT_EQ(v._x , v.len());
     EXPECT_EQ(v._y , 0);
-    v.setAng(M_PI / 2);
-    EXPECT_LE(v._x , _QUAS_0);
-    EXPECT_EQ(v._y , v.len());
+    v.setAng(M_PI_2f32);
+    EXPECT_LE(v._x, _QUAS_0);
+    EXPECT_EQ(v._y, v.len());
     //v.setLen(1); TODO: gives back nan!
     v = {1, 0};
-    v.setAng(M_PI / 6);
+    v.setAng(M_PIf32 / 6);
     EXPECT_EQ(1.0 / 2 , v._y);
     EXPECT_EQ(sqrtf32(3) / 2 , v._x);
 }
-//TODO:
-TEST_F(vec2dTest, Rotate){
 
+TEST_F(vec2dTest, Rotate){
+    llib::vec2d<float> v(1.0f, 0.0f);
+    v.rotate(M_PI);
+    EXPECT_EQ(v._x, -1);
+    EXPECT_LE(v._y, _QUAS_0);
+    v.rotate(M_PI_4f32);
+    EXPECT_EQ(_TEST_RD(v._x), _TEST_RD(-M_SQRT1_2f32));
+    EXPECT_EQ(_TEST_RD(v._y), _TEST_RD(-M_SQRT1_2f32));
+    v.rotate(M_PI_4f32 + M_PIf32 / 6);
+    EXPECT_EQ(v._x, 1.0f/2);
+    EXPECT_EQ(_TEST_RD(v._y), _TEST_RD(-sqrtf32(3)/2));
 }

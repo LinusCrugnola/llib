@@ -9,6 +9,7 @@
 *****************************************************************************************************************************************/
  
 #pragma once
+#define _NODISC [[nodiscard]]
 
 #include <iostream>
 #include <math.h>
@@ -34,22 +35,22 @@ namespace llib {
         // disable the copy constructor
         //vec2d(const vec2d&) = delete;
 
-        [[nodiscard]] vec2d<T> operator+(const vec2d<T>& v) {
+        _NODISC vec2d<T> operator+(const vec2d<T>& v) {
             return vec2d<T>(_x + v._x, _y + v._y);
         }
-        [[nodiscard]] vec2d<T> operator-(const vec2d<T>& v){
+        _NODISC vec2d<T> operator-(const vec2d<T>& v){
             return vec2d<T>(_x - v._x, _y - v._y);
         }
-        [[nodiscard]] bool operator==(const vec2d<T>& v) const {
+        _NODISC bool operator==(const vec2d<T>& v) const {
             return (_x == v._x) and (_y == v._y);
         }
-        [[nodiscard]] bool operator!=(const vec2d<T>& v) const{
+        _NODISC bool operator!=(const vec2d<T>& v) const{
             return (_x != v._x) or (_y != v._y);
         }
-        [[nodiscard]] float len() const {
+        _NODISC float len() const {
             return sqrt(_x * _x + _y * _y);
         }
-        [[nodiscard]] float ang() const {
+        _NODISC float ang() const {
             return atanf(_y / _x);
         }
         //TODO: weird behaviour sometimes (nan)
@@ -64,8 +65,9 @@ namespace llib {
             _y = _fac * sinf32(angle);
         }
         constexpr void rotate(const float& angle){
+            const T _xVal = _x;
             _x = cosf32(angle) * _x - sinf32(angle) * _y;
-            _y = sinf32(angle) * _x + cosf32(angle) * _y;
+            _y = sinf32(angle) * _xVal + cosf32(angle) * _y;
         }
 
         //pol2d to_polar(const vec2d& v) const;
