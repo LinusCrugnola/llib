@@ -8,12 +8,12 @@
 * @date     28.09.2022
 *****************************************************************************************************************************************/
  
+#include "llibStddef.h"
 #include <gtest/gtest.h>
 #include "vec3d.h"
 #include "vec2d.h"
 
 #define _TEST_RD(x) (int(1000000 * x))
-#define _QUAS_0 0.000001
 
 class vec2dTest : public ::testing::Test {
 
@@ -100,7 +100,6 @@ TEST_F(vec2dTest, SetAngle){
     v.setAng(M_PI_2f32);
     EXPECT_LE(v._x, _QUAS_0);
     EXPECT_EQ(v._y, v.len());
-    //v.setLen(1); TODO: gives back nan!
     v = {1, 0};
     v.setAng(M_PIf32 / 6);
     EXPECT_EQ(1.0 / 2 , v._y);
@@ -118,4 +117,12 @@ TEST_F(vec2dTest, Rotate){
     v.rotate(M_PI_4f32 + M_PIf32 / 6);
     EXPECT_EQ(v._x, 1.0f/2);
     EXPECT_EQ(_TEST_RD(v._y), _TEST_RD(-sqrtf32(3)/2));
+}
+
+TEST_F(vec2dTest, Precise8){
+    llib::vec2d<float> v(1.0f, 0.0f);
+    v.rotate(M_PI_4f32);
+    v.preciseE8();
+    EXPECT_EQ(v._x, llib::preciseE8(M_SQRT1_2f32));
+    EXPECT_LE(v._y, llib::preciseE8(M_SQRT1_2f32));
 }
