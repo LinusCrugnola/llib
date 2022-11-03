@@ -13,15 +13,14 @@
 
 #include <iostream>
 #include <math.h>
-#include <exception>
 
 namespace llib {
 
     /**
      * @brief General type: two dimension vector
      * 
-     * @param dx change of x direction
-     * @param dy change of y direciton
+     * @param _x change of x direction
+     * @param _y change of y direciton
      */
     template<class T>
     struct vec2d final {
@@ -31,58 +30,39 @@ namespace llib {
         vec2d(T x, T y) : _x(x), _y(y) {}
         vec2d(T x) : _x(x), _y(x) {}
         vec2d() : _x(), _y() {}
-        ~vec2d(){};
+        ~vec2d() {}
 
         // disable the copy constructor
-        //vec2d(const vec2d&) = delete;
+        vec2d(const vec2d&) = delete;
 
-        _NODISC vec2d<T> operator+(const vec2d<T>& v) {
-            return vec2d<T>(_x + v._x, _y + v._y);
-        }
-        _NODISC vec2d<T> operator-(const vec2d<T>& v){
-            return vec2d<T>(_x - v._x, _y - v._y);
-        }
-        _NODISC bool operator==(const vec2d<T>& v) const {
-            return (_x == v._x) and (_y == v._y);
-        }
-        _NODISC bool operator!=(const vec2d<T>& v) const{
-            return (_x != v._x) or (_y != v._y);
-        }
-        _NODISC float len() const {
-            return sqrt(_x * _x + _y * _y);
-        }
-        _NODISC float ang() const {
-            return atanf(_y / _x);
-        }
-        constexpr void setLen(const float& length){
-            // vec._x = len if vec is (0,0) 
-            if(_x < _QUAS_0 and _y < _QUAS_0){
-                _x = length;
-            }
-            else if(_x < _QUAS_0){
-                _y = _y / abs(_y) * length;
-            }
-            else{
-                float _fac = (float)_y / _x;
-                _x = length * 1 / sqrtf32(1 + _fac);
-                _y = length * _fac / sqrtf32(1 + _fac);
-            }
-        }
-        constexpr void setAng(const float& angle){
-            float _fac = this->len();
-            _x = _fac * cosf32(angle);
-            _y = _fac * sinf32(angle);
-        }
-        constexpr void rotate(const float& angle){
-            const T _xVal = _x;
-            _x = cosf32(angle) * _x - sinf32(angle) * _y;
-            _y = sinf32(angle) * _xVal + cosf32(angle) * _y;
-        }
+        /**
+         * @brief overload operators for vec2d
+         */
+        _NODISC vec2d<T> operator+(const vec2d<T>& v);
+        _NODISC vec2d<T> operator-(const vec2d<T>& v);
+        _NODISC bool operator==(const vec2d<T>& v) const;
+        _NODISC bool operator!=(const vec2d<T>& v) const;
+        /**
+         * @brief get the length of the vector
+         * 
+         * @return float length
+         */
+        _NODISC float len() const;
 
-        constexpr void preciseE8(){
-            _x = llib::preciseE8(_x);
-            _y = llib::preciseE8(_y);
-        }
+        /**
+         * @brief get the angle of the vector
+         * 
+         * @return float angle
+         */
+        _NODISC float ang() const;
+
+        void setLen(const float& length);
+
+        void setAng(const float& angle);
+
+        void rotate(const float& angle);
+
+        void preciseE8();
 
         //pol2d to_polar(const vec2d& v) const;
 
